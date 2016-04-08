@@ -1,4 +1,4 @@
-package javaswing074_applet_start_stop_init_destroy;
+package javaswing_applet;
 
 import javax.swing.JApplet;
 
