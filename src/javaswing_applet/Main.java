@@ -1,5 +1,7 @@
 package javaswing_applet;
 
+import java.awt.BorderLayout;
+
 import javax.swing.JApplet;
 
 
@@ -14,6 +16,9 @@ public class Main extends JApplet {
 	@Override
 	public void init() {
 		// TODO Auto-generated method stub
+		setLayout(new BorderLayout());
+		
+		add (new Game(), BorderLayout.CENTER);
 		System.out.println("init");
 	}
 
