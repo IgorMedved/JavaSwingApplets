@@ -11,6 +11,11 @@ import javax.swing.JComponent;
 
 public class Game extends JComponent {
 
+	private Ellipse2D.Double mBall = new Ellipse2D.Double(100, 100, 15,15);
+	private double mSpeed = 10.0;
+	private int mXDirectionBall = 1;
+	private int mYDirectionBall = 1;
+	
 	@Override
 	protected void paintComponent(Graphics g) 
 	{
@@ -22,10 +27,41 @@ public class Game extends JComponent {
 		g2.fillRect(0, 0, getWidth(), getHeight());
 		
 		g2.setColor(Color.RED);
-		g2.fill(new Ellipse2D.Double(100, 100, 15,15));
+		g2.fill(mBall);
 		
 		g2.setColor(Color.BLUE);
 		g2.fill(new RoundRectangle2D.Double(200, 200, 100, 10, 20, 20));
+		
+	}
+	
+	public void update()
+	{
+		mBall.x += mXDirectionBall*mSpeed;
+		mBall.y += mYDirectionBall*mSpeed;
+		
+		if (mBall.x < 0)
+		{
+			mXDirectionBall =1;
+			mBall.x = 0;
+		}
+		else if ( mBall.x > getWidth() - mBall.getBounds().width)
+		{
+			mXDirectionBall = -1;
+			mBall.x = getWidth() - mBall.getBounds().width;
+		}
+		
+		if (mBall.y < 0)
+		{
+			mYDirectionBall =1;
+			mBall.y = 0;
+		}
+		else if ( mBall.y > getHeight() - mBall.getBounds().height)
+		{
+			mYDirectionBall = -1;
+			mBall.y = getHeight() - mBall.getBounds().height;
+		}
+		
+		repaint();
 		
 	}
 
