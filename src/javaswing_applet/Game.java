@@ -4,6 +4,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
@@ -13,11 +16,48 @@ import javax.swing.JComponent;
 public class Game extends JComponent {
 
 	private Ellipse2D.Double mBall = new Ellipse2D.Double(100, 100, 15,15);
+	private RoundRectangle2D.Double mBat = new RoundRectangle2D.Double(200, 200, 100, 10, 20, 20);
+	
 	private double mSpeed = 10.0;
 	private int mXDirectionBall = 1;
 	private int mYDirectionBall = 1;
 	
 	private BufferedImage mBuffer;
+	
+	public Game()
+	{
+		addMouseMotionListener(new MouseMotionListener()
+		{
+
+			@Override
+			public void mouseDragged(MouseEvent arg0) 
+			{
+				
+			}
+
+			@Override
+			public void mouseMoved(MouseEvent e) 
+			{
+				mBat.x = e.getX() - mBat.getWidth()/2;
+				mBat.y = e.getY() - mBat.getHeight()/2;
+			}
+			
+		
+		
+		});
+		
+		addMouseListener (new MouseAdapter(){
+
+			@Override
+			public void mouseClicked(MouseEvent e) 
+			{
+				mBall.x = e.getX();
+				mBall.y = e.getY();
+			}
+			
+		});
+	}
+	
 	
 	@Override
 	protected void paintComponent(Graphics g) 
@@ -37,7 +77,7 @@ public class Game extends JComponent {
 		g2.fill(mBall);
 		
 		g2.setColor(Color.BLUE);
-		g2.fill(new RoundRectangle2D.Double(200, 200, 100, 10, 20, 20));
+		g2.fill(mBat);
 		
 		g.drawImage(mBuffer, 0, 0, null);
 		
