@@ -16,7 +16,6 @@ public class Main extends JApplet implements ActionListener {
 	@Override
 	public void destroy() {
 		// TODO Auto-generated method stub
-		System.out.println("destroy");
 	}
 
 	@Override
@@ -31,20 +30,15 @@ public class Main extends JApplet implements ActionListener {
 		setLayout(new BorderLayout());
 		
 		add (mGame, BorderLayout.CENTER);
-		System.out.println("init");
 	}
 
 	@Override
 	public void start() {
-		// TODO Auto-generated method stub
-		System.out.println("start");
 		mTimer.start();
 	}
 
 	@Override
 	public void stop() {
-		// TODO Auto-generated method stub
-		System.out.println("stop");
 		mTimer.stop();
 	}
 

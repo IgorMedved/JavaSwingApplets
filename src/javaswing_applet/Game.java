@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.RoundRectangle2D;
+import java.awt.image.BufferedImage;
 
 import javax.swing.JComponent;
 
@@ -16,10 +17,16 @@ public class Game extends JComponent {
 	private int mXDirectionBall = 1;
 	private int mYDirectionBall = 1;
 	
+	private BufferedImage mBuffer;
+	
 	@Override
 	protected void paintComponent(Graphics g) 
 	{
-		Graphics2D g2 = (Graphics2D)g;
+		if (mBuffer == null)
+			mBuffer = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
+			
+		Graphics2D g2 = (Graphics2D)mBuffer.getGraphics();
+		
 		
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		
@@ -32,7 +39,11 @@ public class Game extends JComponent {
 		g2.setColor(Color.BLUE);
 		g2.fill(new RoundRectangle2D.Double(200, 200, 100, 10, 20, 20));
 		
+		g.drawImage(mBuffer, 0, 0, null);
+		
 	}
+	
+	
 	
 	public void update()
 	{
@@ -64,5 +75,15 @@ public class Game extends JComponent {
 		repaint();
 		
 	}
+
+
+
+	@Override
+	public void update(Graphics g) {
+		
+		paint(g);
+	}
+	
+	
 
 }
