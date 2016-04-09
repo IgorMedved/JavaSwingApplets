@@ -8,10 +8,11 @@ import javax.swing.JApplet;
 import javax.swing.Timer;
 
 
-public class Main extends JApplet implements ActionListener {
+public class Main extends JApplet implements ActionListener, StartButtonClickListener {
 
 	private Timer mTimer;
 	private Game mGame;
+	private StartPanel mStartPanel;
 	
 	@Override
 	public void destroy() {
@@ -21,7 +22,10 @@ public class Main extends JApplet implements ActionListener {
 	@Override
 	public void init() {
 		
-		mGame = new Game();
+		//mGame = new Game();
+		mStartPanel = new StartPanel();
+		mStartPanel.setListener(this);
+		
 		
 		mTimer = new Timer (20,  this);
 		mTimer.start();
@@ -29,7 +33,7 @@ public class Main extends JApplet implements ActionListener {
 		setSize(600,500);
 		setLayout(new BorderLayout());
 		
-		add (mGame, BorderLayout.CENTER);
+		add (mStartPanel, BorderLayout.CENTER);
 	}
 
 	@Override
@@ -44,7 +48,15 @@ public class Main extends JApplet implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		mGame.update();
+		if (mGame!=null)
+			mGame.update();
+	}
+
+	@Override
+	public void onStartButtonClicked() {
+		mGame = new Game();
+		//remove(mStartPanel);
+		add (mGame, BorderLayout.CENTER);
 	}
 
 }

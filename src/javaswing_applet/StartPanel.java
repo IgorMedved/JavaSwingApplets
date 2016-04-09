@@ -7,16 +7,18 @@ import java.awt.GridBagConstraints;
 import javax.swing.JButton;
 import java.awt.Insets;
 import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class StartPanel extends JPanel {
 
-	/**
-	 * Create the panel.
-	 */
+	private StartButtonClickListener mListener;
+	
+	
 	public StartPanel() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWeights = new double[]{0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.columnWeights = new double[]{0.0};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0};
 		setLayout(gridBagLayout);
 		
 		JLabel lblSwingAppletDemo = new JLabel("Swing Applet Demo");
@@ -30,6 +32,12 @@ public class StartPanel extends JPanel {
 		add(lblSwingAppletDemo, gbc_lblSwingAppletDemo);
 		
 		JButton btnStartNewSimulation = new JButton("Start New Simulation");
+		btnStartNewSimulation.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (mListener != null)
+					mListener.onStartButtonClicked();
+			}
+		});
 		GridBagConstraints gbc_btnStartNewSimulation = new GridBagConstraints();
 		gbc_btnStartNewSimulation.insets = new Insets(20, 0, 0, 0);
 		gbc_btnStartNewSimulation.anchor = GridBagConstraints.NORTH;
@@ -38,6 +46,12 @@ public class StartPanel extends JPanel {
 		gbc_btnStartNewSimulation.gridy = 1;
 		add(btnStartNewSimulation, gbc_btnStartNewSimulation);
 
+	}
+
+
+	public void setListener(StartButtonClickListener listener) {
+		mListener = listener;
+		
 	}
 
 }
