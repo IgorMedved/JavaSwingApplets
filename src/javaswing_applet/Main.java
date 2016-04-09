@@ -1,6 +1,7 @@
 package javaswing_applet;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -13,6 +14,7 @@ public class Main extends JApplet implements ActionListener, StartButtonClickLis
 	private Timer mTimer;
 	private Game mGame;
 	private StartPanel mStartPanel;
+	private CardLayout mCards;
 	
 	@Override
 	public void destroy() {
@@ -22,7 +24,8 @@ public class Main extends JApplet implements ActionListener, StartButtonClickLis
 	@Override
 	public void init() {
 		
-		//mGame = new Game();
+		mGame = new Game();
+		mCards = new CardLayout();
 		mStartPanel = new StartPanel();
 		mStartPanel.setListener(this);
 		
@@ -31,9 +34,11 @@ public class Main extends JApplet implements ActionListener, StartButtonClickLis
 		mTimer.start();
 		
 		setSize(600,500);
-		setLayout(new BorderLayout());
+		setLayout(mCards);
 		
-		add (mStartPanel, BorderLayout.CENTER);
+		add (mStartPanel, "start");
+		add (mGame, "game");
+		
 	}
 
 	@Override
@@ -54,9 +59,7 @@ public class Main extends JApplet implements ActionListener, StartButtonClickLis
 
 	@Override
 	public void onStartButtonClicked() {
-		mGame = new Game();
-		//remove(mStartPanel);
-		add (mGame, BorderLayout.CENTER);
+		mCards.show(getContentPane(), "game");
 	}
 
 }
