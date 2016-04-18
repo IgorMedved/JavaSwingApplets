@@ -33,7 +33,7 @@ public class Main extends JApplet implements ActionListener, StartButtonClickLis
 		mTimer = new Timer (20,  this);
 		mTimer.start();
 		
-		setSize(600,500);
+		setSize(240,360);
 		setLayout(mCards);
 		
 		add (mStartPanel, "start");
